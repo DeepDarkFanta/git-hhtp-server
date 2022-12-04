@@ -1,2 +1,2 @@
-# git-hhtp-server
+# git-http-server
 httpServer implementation in java
