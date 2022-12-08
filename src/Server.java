@@ -31,6 +31,7 @@ public class Server {
 
     public static void main (String[] args)
     {
+        System.out.println("Ok, server is ready");
         var port = Integer.parseInt("8080");
         var directory = "./files";
         new Server(port, directory).start();
