@@ -10,10 +10,10 @@ public class Handler extends Thread {
 
     private static final Map<String, String> CONTENT_TYPES = new HashMap<>() {{
         put("jpg", "image/jpeg");
-        put("html", "text/html");
-        put("json", "application/json");
-        put("txt", "text/plain");
-        put("", "text/plain");
+        put("html", "text/html; charset=utf-8");
+        put("json", "application/json; charset=utf-8");
+        put("txt", "text/plain; charset=utf-8");
+        put("", "text/plain; charset=utf-8");
         put("png", "image/png");
     }};
 
@@ -32,8 +32,8 @@ public class Handler extends Thread {
     @Override
     public void run()
     {
-        try (var input = this.socket.getInputStream(); var output = this.socket.getOutputStream()) {
-            var url = this.getRequestUrl(input);
+        try (InputStream input = this.socket.getInputStream(); var output = this.socket.getOutputStream()) {
+            String url = this.getRequestUrl(input);
             var filePath = Path.of(this.directory, url);
             if (Files.exists(filePath) && !Files.isDirectory(filePath)){
                 var extension = this.getFileExtension(filePath);

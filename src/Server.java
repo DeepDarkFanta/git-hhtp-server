@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
 
@@ -16,12 +17,12 @@ public class Server {
 
     void start()
     {
-        try (var server = new ServerSocket(this.port)){
+        try (ServerSocket server = new ServerSocket(this.port)){
             System.out.println(Inet4Address.getLocalHost().getHostAddress());
             while (true)
             {
-                var socket = server.accept();
-                var thread = new Handler(socket, this.directory);
+                Socket socket = server.accept();
+                Thread thread = new Handler(socket, this.directory);
                 thread.start();
             }
         } catch (IOException e) {
@@ -32,8 +33,8 @@ public class Server {
     public static void main (String[] args)
     {
         System.out.println("Ok, server is ready");
-        var port = Integer.parseInt("8080");
-        var directory = "./files";
+        int port = Integer.parseInt("8080");
+        String directory = "./files";
         new Server(port, directory).start();
     }
 }
