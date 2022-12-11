@@ -8,11 +8,13 @@ import java.util.Scanner;
 
 public class Handler extends Thread {
 
-    private static final Map<String, String> CONTENT_TYPES = new HashMap<>() {{
+    private static final Map<String, String> CONTENT_TYPES = new HashMap<>()
+    {{
         put("jpg", "image/jpeg");
         put("html", "text/html; charset=utf-8");
         put("json", "application/json; charset=utf-8");
         put("txt", "text/plain; charset=utf-8");
+        put("mp4", "video/mp4");
         put("", "text/plain; charset=utf-8");
         put("png", "image/png");
     }};
@@ -35,6 +37,9 @@ public class Handler extends Thread {
         try (InputStream input = this.socket.getInputStream(); var output = this.socket.getOutputStream()) {
             String url = this.getRequestUrl(input);
             var filePath = Path.of(this.directory, url);
+
+            //switch add
+
             if (Files.exists(filePath) && !Files.isDirectory(filePath)){
                 var extension = this.getFileExtension(filePath);
                 var type = CONTENT_TYPES.get(extension);
