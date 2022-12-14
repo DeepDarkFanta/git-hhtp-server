@@ -25,8 +25,7 @@ public class Handler extends Thread {
 
     private String directory;
 
-    Handler(Socket socket, String directory)
-    {
+    Handler(Socket socket, String directory) {
         this.socket = socket;
         this.directory = directory;
     }
@@ -58,22 +57,19 @@ public class Handler extends Thread {
         System.out.println(socket.getInetAddress());
     }
 
-    private String getRequestUrl (InputStream input)
-    {
+    private String getRequestUrl (InputStream input) {
         var reader = new Scanner(input).useDelimiter("\r\n");
         var line = reader.next();
         return line.split(" ")[1];
     }
 
-    private String getFileExtension(Path path)
-    {
+    private String getFileExtension(Path path) {
         var name = path.getFileName().toString();
         var extensionStart = name.lastIndexOf(".");
         return extensionStart == -1 ? "" : name.substring(extensionStart + 1);
     }
 
-    private void sendHeader (OutputStream output, int statusCode, String statusText, String type, long length)
-    {
+    private void sendHeader (OutputStream output, int statusCode, String statusText, String type, long length) {
         var ps = new PrintStream(output);
         ps.printf("HTTP/1.1 %s %s%n", statusCode, statusText);
         ps.printf("Content-Type: %s%n", type);

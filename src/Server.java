@@ -9,14 +9,12 @@ public class Server {
 
     private String directory;
 
-    public Server (int port, String directory)
-    {
+    public Server (int port, String directory) {
         this.port = port;
         this.directory = directory;
     }
 
-    void start()
-    {
+    void start() {
         try (ServerSocket server = new ServerSocket(this.port)){
             System.out.println(Inet4Address.getLocalHost().getHostAddress());
             while (true)
@@ -30,8 +28,7 @@ public class Server {
         }
     }
 
-    public static void main (String[] args)
-    {
+    public static void main (String[] args) {
         System.out.println("Ok, server is ready");
         int port = Integer.parseInt("8080");
         String directory = "./files";
